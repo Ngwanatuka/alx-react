@@ -1,56 +1,33 @@
 // notificationReducer.js
+import { Map, fromJS } from 'immutable';
 import {
   FETCH_NOTIFICATIONS_SUCCESS,
-  MARK_AS_READ,
   SET_TYPE_FILTER,
-} from "../actions/notificationActionTypes";
+  MARK_AS_READ,
+} from '../actions/notificationActionTypes';
+import { notificationsNormalizer } from '../schema/notifications';
 
-// Default state
-const initialState = {
-  filter: "DEFAULT",
-  notifications: [],
-};
+// Initial state
+const initialState = Map({
+  filter: 'DEFAULT',
+  notifications: Map(),
+});
 
 // Reducer function
 const notificationReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_NOTIFICATIONS_SUCCESS:
-      // Update notifications and set isRead to false for each item
-      const updatedNotifications = action.data.map((notification) => ({
-        ...notification,
-        isRead: false,
-      }));
-      return {
-        ...state,
-        notifications: updatedNotifications,
-      };
-
-    case MARK_AS_READ:
-      // Update isRead for the marked notification
-      const markedNotificationIndex = state.notifications.findIndex(
-        (notification) => notification.id === action.index
-      );
-
-      if (markedNotificationIndex !== -1) {
-        const updatedNotificationsRead = [...state.notifications];
-        updatedNotificationsRead[markedNotificationIndex] = {
-          ...updatedNotificationsRead[markedNotificationIndex],
-          isRead: true,
-        };
-
-        return {
-          ...state,
-          notifications: updatedNotificationsRead,
-        };
-      }
-      return state;
+      // Normalize the data and merge it with the state
+      const normalizedData = notificationsNormalizer(action.data);
+      return state.mergeDeep(fromJS(normalizedData));
 
     case SET_TYPE_FILTER:
-      // Update the filter attribute
-      return {
-        ...state,
-        filter: action.filter,
-      };
+      // Update the value of the state using set
+      return state.set('filter', action.filter);
+
+    case MARK_AS_READ:
+      // Update the value of the item using setIn
+      return state.setIn(['notifications', action.index, 'isRead'], true);
 
     default:
       return state;

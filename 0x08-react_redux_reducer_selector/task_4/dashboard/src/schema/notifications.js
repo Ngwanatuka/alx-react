@@ -1,5 +1,7 @@
-import * as notificationData from '../../notifications.json';
+// schema/notifications.js
 import { schema, normalize } from 'normalizr';
+import * as notificationData from '../../notifications.json';
+import { fromJS } from 'immutable';
 
 const user = new schema.Entity('users');
 
@@ -15,6 +17,10 @@ const notification = new schema.Entity(
 );
 
 const notificationsSchema = [notification];
+
+export function notificationsNormalizer(data) {
+  return normalize(data, notificationsSchema);
+}
 
 const normalizedData = normalize(notificationData, notificationsSchema);
 

@@ -1,4 +1,6 @@
+// notifications.test.js
 import { getAllNotificationsByUser } from "./notifications";
+import { Map } from 'immutable';
 
 test('Normalized data has a correct users entity', () => {
     const userId = '5debd764a7c57c7839d722e9';
@@ -19,12 +21,12 @@ test('Normalized data has a correct users entity', () => {
 test('Normalized data has a correct messages entity', () => {
     const messageGuid = 'efb6c485-00f7-4fdf-97cc-5e12d14d6c41';
 
-    const { entities } = getAllNotificationsByUser('5debd764a7c57c7839d722e9');
+    const { entities, result } = getAllNotificationsByUser('5debd764a7c57c7839d722e9');
 
     const expectedNotification = {
         author: "5debd764f8452ef92346c772",
         context: "3068c575-d619-40af-bf12-dece1ee18dd3",
-        id: "5debd7642e815cd350407777"
+        id: "5debd7642e815cd350407777",
     };
 
     const expectedIds = [
@@ -44,6 +46,6 @@ test('Normalized data has a correct messages entity', () => {
         "5debd764de9fa684468cdc0b"
     ];
 
-    expect(entities.notifications[notificationId]).toEqual(expectedNotification);
+    expect(entities.notifications[messageGuid]).toEqual(expectedNotification);
     expect(result).toEqual(expect.arrayContaining(expectedIds));
 });
