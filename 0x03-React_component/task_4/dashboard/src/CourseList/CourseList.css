@@ -1,0 +1,38 @@
+#CourseList {
+    margin-top: 1.25rem;
+    border: 1px solid;
+    width: 80%;
+    border-color: rgba(0, 0, 0, 0.32);
+
+}
+
+
+
+th {
+    text-align: center;
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #000000;
+    border: 1px solid;
+    border-color: rgba(0, 0, 0, 0.32);
+    padding: 0.5rem;
+}
+
+thead th:nth-child(1) {
+    text-align: left;
+    border: 1px solid;
+    border-right: none;
+    border-right: none;
+    font-family: Poppins;
+    border-color: rgba(0, 0, 0, 0.32);
+}
+
+thead th:nth-child(2) {
+    text-align: left;
+    border: 1px solid;
+    border-left: none;
+    border-right: none;
+    font-family: Poppins;
+    border-color: rgba(0, 0, 0, 0.32);
+}

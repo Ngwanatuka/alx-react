@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CourseListRow Component matches snapshot 1`] = `
+<tr>
+  <th
+    colSpan="2"
+  >
+    Header Text
+  </th>
+</tr>
+`;

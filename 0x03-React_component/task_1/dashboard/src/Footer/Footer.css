@@ -1,0 +1,13 @@
+.App-footer {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    color: #000000;
+    border-top: 3px solid #dc3630;
+    position: absolute;
+    bottom: 0;
+    height: 2.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-style: italic;
+  }

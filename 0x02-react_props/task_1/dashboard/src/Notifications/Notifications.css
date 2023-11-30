@@ -1,0 +1,13 @@
+#root-notifications {
+    margin: 0.5rem;
+    border: 2px dotted #d92626;
+    padding: 1.5%; 
+}
+
+li[data-priority="default"] {
+    color: blue;
+}
+
+li[data-priority="urgent"] {
+    color: red;
+}

@@ -1,0 +1,24 @@
+.App-body {
+  font-family: "Poppins", sans-serif;
+  color: #000000;
+}
+
+.App-body p {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  margin-top: 5%;
+  margin-left: 5%;
+}
+
+.App-login {
+  display: flex;
+  gap: 1.5%;
+  margin-left: 5%;
+}
+
+.App-login button {
+  background-color: white;
+  border: 1px solid #000;
+  border-radius: 6px;
+  box-shadow: 0 0 5 2 #000;
+}

@@ -1,0 +1,12 @@
+.App-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    background-size: auto;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    color: #dc3630;
+    border-bottom: 2px solid #dc3630;
+    width: 100%;
+  }

@@ -1,0 +1,9 @@
+#CourseList {
+    border: 1px solid;
+    width: 100%;
+}
+thead th:nth-child(1) {
+    text-align: center;
+    border: 1px solid;
+
+}
