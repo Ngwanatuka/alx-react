@@ -5,7 +5,7 @@ import {
   MARK_AS_READ,
   SET_TYPE_FILTER,
 } from '../actions/notificationActionTypes';
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
 
 // Test suite
 describe('notificationReducer', () => {
