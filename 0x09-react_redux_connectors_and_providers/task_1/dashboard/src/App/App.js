@@ -29,7 +29,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayDrawer: false,
       user: {
         email: "",
         password: "",
@@ -38,28 +37,11 @@ class App extends Component {
       listNotifications: [],
     };
     this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
-    this.handleHideDrawer = this.handleHideDrawer.bind(this);
     this.logIn = this.logIn.bind(this);
     this.logOut = this.logOut.bind(this);
     this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
   }
 
-  // Function to handle displaying the drawer
-  handleDisplayDrawer() {
-    console.log("Display drawer");
-    this.setState({
-      displayDrawer: true,
-    });
-  }
-
-  // Functionto handle hiding the drawer
-  handleHideDrawer() {
-    console.log("Hide drawer");
-    this.setState({
-      displayDrawer: false,
-    });
-  }
 
   // Function to handle key press
   handleKeyPress(event) {
@@ -184,7 +166,12 @@ const styles = StyleSheet.create({
   },
 });
 
-App.defaultProps = {};
+App.defaultProps = {
+  isLoggedIn: PropTypes.bool,isRequired,
+  isNotificationDrawerVisible: PropTypes.bool.isRequired,
+  displayNotificationDrawer: PropTypes.func.isRequired,
+  hideNotificationDrawer: PropTypes.func.isRequired,
+};
 
 App.propTypes = {};
 
