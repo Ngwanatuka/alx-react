@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import logo from "../assets/holberton-logo.jpg";
 import { StyleSheet, css } from 'aphrodite';
-import AppContext from "../App/AppContext";
+import { logout } from '../actions/uiActionCreators';
+import { connect } from "react-redux";
 
 class Header extends Component {
-  static contextType = AppContext;
 
   render() {
-    const { user, logOut } = this.context;
+    const { user, logout } = this.props;
 
     const styles = StyleSheet.create({
       header: {
@@ -32,7 +32,7 @@ class Header extends Component {
         </div>
         {user.isLoggedIn && (
           <section id="logoutSection">
-            Welcome {user.email} (<span onClick={logOut}>logout</span>)
+            Welcome {user.email} (<span onClick={logout}>logout</span>)
           </section>
         )}
       </div>
@@ -40,4 +40,10 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps)(Header);
