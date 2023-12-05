@@ -19,16 +19,12 @@ const mapStateToProps = (state) => {
     isNotificationDrawerVisible: state.ui.isNotificationDrawerVisible,
   };
 };
-
-const mapDispatchToProps = {
-  displayNotificationDrawer,
-  hideNotificationDrawer,
-}
 class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      displayDrawer: false,
       user: {
         email: "",
         password: "",
@@ -37,11 +33,28 @@ class App extends Component {
       listNotifications: [],
     };
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
+    this.handleHideDrawer = this.handleHideDrawer.bind(this);
     this.logIn = this.logIn.bind(this);
     this.logOut = this.logOut.bind(this);
     this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
   }
 
+  // Function to handle displaying the drawer
+  handleDisplayDrawer() {
+    console.log("Display drawer");
+    this.setState({
+      displayDrawer: true,
+    });
+  }
+
+  // Functionto handle hiding the drawer
+  handleHideDrawer() {
+    console.log("Hide drawer");
+    this.setState({
+      displayDrawer: false,
+    });
+  }
 
   // Function to handle key press
   handleKeyPress(event) {
@@ -83,7 +96,7 @@ class App extends Component {
   }
 
   render() {
-    const { isLoggedIn, isNotificationDrawerVisible, displayNotificationDrawer, hideNotificationDrawer } = this.props;
+    const { isLoggedIn, isNotificationDrawerVisible } = this.props;
     const { displayDrawer, user, listNotifications } = this.state;
 
     const listCourses = [
@@ -112,9 +125,9 @@ class App extends Component {
         <div className={css(styles.app)}>
           <Notifications
             listNotifications={listNotifications}
-            displayDrawer={isNotificationDrawerVisible}
-            handleDisplayDrawer={displayNotificationDrawer}
-            handleHideDrawer={hideNotificationDrawer}
+            displayDrawer={this.state.displayDrawer}
+            handleDisplayDrawer={this.handleDisplayDrawer}
+            handleHideDrawer={this.handleHideDrawer}
             markNotificationAsRead={this.markNotificationAsRead}
           />
           <div className={css(styles.appHeader)}>
@@ -166,13 +179,8 @@ const styles = StyleSheet.create({
   },
 });
 
-App.defaultProps = {
-  isLoggedIn: PropTypes.bool,isRequired,
-  isNotificationDrawerVisible: PropTypes.bool.isRequired,
-  displayNotificationDrawer: PropTypes.func.isRequired,
-  hideNotificationDrawer: PropTypes.func.isRequired,
-};
+App.defaultProps = {};
 
 App.propTypes = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
