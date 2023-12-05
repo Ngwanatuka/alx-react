@@ -9,8 +9,16 @@ import PropTypes from "prop-types";
 import BodySection from "../BodySection/BodySection";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import AppContext from "./AppContext";
+import { connect } from "react-redux";
 
+// Map state to props
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.get("isUserLoggedIn"),
+  };
+};
 class App extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -173,4 +181,4 @@ App.defaultProps = {};
 
 App.propTypes = {};
 
-export default App;
+export default connect(mapStateToProps)(App);
