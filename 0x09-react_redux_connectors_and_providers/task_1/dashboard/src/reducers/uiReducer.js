@@ -3,11 +3,11 @@ import { Map } from 'immutable';
 import * as actionTypes from '../actions/uiActionTypes';
 
 // Initial state
-const initialState = {
+const initialState = Map({ 
   isNotificationDrawerVisible: false,
   isUserLoggedIn: false,
   user: Map(),
-};
+});
 
 // Reducer function
 const uiReducer = (state = initialState, action) => {

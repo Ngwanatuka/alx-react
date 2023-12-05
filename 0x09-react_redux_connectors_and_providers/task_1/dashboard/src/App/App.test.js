@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import { App } from "./App";
+import App  from "./App";
 import Notifications from "../Notifications/Notifications";
 import Header from "../Header/Header";
 import Login from "../Login/Login";
@@ -8,12 +8,18 @@ import Footer from "../Footer/Footer";
 import CourseList from "../CourseList/CourseList";
 import { mapStateToProps } from "./App";
 import { fromJS } from "immutable";
+import configureStore from "redux-mock-store";
+import toJson from "enzyme-to-json";
 
-describe("App", () => {
-  it("renders without crashing", () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper.exists()).toBe(true);
+const mockStore = configureStore([]);
+const store = mockStore({});
+
+describe('App', () => {
+  it('renders without crashing', () => {
+    const wrapper = shallow(<App store={store} />).dive();
+    expect(toJson(wrapper)).toMatchSnapshot();
   });
+});
 
   it("renders a div with the class App-header", () => {
     const wrapper = shallow(<App />);
@@ -134,7 +140,6 @@ describe("App", () => {
       ]);
     });
   });
-});
 
 describe("mapStateToProps", () => {
   it("returns the right object when passing the state", () => {
