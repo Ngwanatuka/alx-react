@@ -6,6 +6,7 @@ import Header from "../Header/Header";
 import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
 import CourseList from "../CourseList/CourseList";
+import { MapStateToProps } from "./App";
 
 describe("App", () => {
   it("renders without crashing", () => {
@@ -114,28 +115,48 @@ describe("App", () => {
       password: "",
       isLoggedIn: false,
     });
+  });
 
-    it("should mark notification as read", () => {
-      const wrapper = shallow(<App isLoggedIn={true} />);
-      
-      // Mock list of notifications
-      const mockNotifications = [
-        { id: 1, message: "Notification 1" },
-        { id: 2, message: "Notification 2" },
-        { id: 3, message: "Notification 3" },
-      ];
-  
-      // Set the state with mock notifications
-      wrapper.setState({ listNotifications: mockNotifications });
-  
-      // Call markNotificationAsRead with the id of the notification to mark as read
-      wrapper.instance().markNotificationAsRead(2);
-  
-      // Verify that the state has been updated correctly
-      expect(wrapper.state("listNotifications")).toEqual([
-        { id: 1, message: "Notification 1" },
-        { id: 3, message: "Notification 3" },
-      ]);
+  it("should mark notification as read", () => {
+    const wrapper = shallow(<App isLoggedIn={true} />);
+
+    // Mock list of notifications
+    const mockNotifications = [
+      { id: 1, message: "Notification 1" },
+      { id: 2, message: "Notification 2" },
+      { id: 3, message: "Notification 3" },
+    ];
+
+    // Set the state with mock notifications
+    wrapper.setState({ listNotifications: mockNotifications });
+
+    // Call markNotificationAsRead with the id of the notification to mark as read
+    wrapper.instance().markNotificationAsRead(2);
+
+    // Verify that the state has been updated correctly
+    expect(wrapper.state("listNotifications")).toEqual([
+      { id: 1, message: "Notification 1" },
+      { id: 3, message: "Notification 3" },
+    ]);
+  });
+});
+
+describe("mapStateToProps", () => {
+  it("returns the right object when passing the state", () => {
+    // Mock state using Immutable Map
+    const state = fromJS({
+      uiReducer: {
+        isLoggedIn: true,
+      },
+      // Add other reducers if needed
+    });
+
+    // Call mapStateToProps with the mock state
+    const props = mapStateToProps(state);
+
+    // Verify that the function returns the correct object
+    expect(props).toEqual({
+      isLoggedIn: true,
     });
   });
 });

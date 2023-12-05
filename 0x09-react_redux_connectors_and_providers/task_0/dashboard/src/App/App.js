@@ -14,7 +14,7 @@ import { connect } from "react-redux";
 // Map state to props
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.get("isUserLoggedIn"),
+    isLoggedIn: state.isLoggedIn,
   };
 };
 class App extends Component {
