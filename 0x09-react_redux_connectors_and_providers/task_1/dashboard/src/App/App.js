@@ -19,6 +19,11 @@ const mapStateToProps = (state) => {
     isNotificationDrawerVisible: state.ui.isNotificationDrawerVisible,
   };
 };
+
+const mapDispatchToProps = {
+  displayNotificationDrawer,
+  hideNotificationDrawer,
+}
 class App extends Component {
 
   constructor(props) {
@@ -96,7 +101,7 @@ class App extends Component {
   }
 
   render() {
-    const { isLoggedIn, isNotificationDrawerVisible } = this.props;
+    const { isLoggedIn, isNotificationDrawerVisible, displayNotificationDrawer, hideNotificationDrawer } = this.props;
     const { displayDrawer, user, listNotifications } = this.state;
 
     const listCourses = [
@@ -126,8 +131,8 @@ class App extends Component {
           <Notifications
             listNotifications={listNotifications}
             displayDrawer={isNotificationDrawerVisible}
-            handleDisplayDrawer={this.handleDisplayDrawer}
-            handleHideDrawer={this.handleHideDrawer}
+            handleDisplayDrawer={displayNotificationDrawer}}
+            handleHideDrawer={hideNotificationDrawer}
             markNotificationAsRead={this.markNotificationAsRead}
           />
           <div className={css(styles.appHeader)}>
@@ -183,4 +188,4 @@ App.defaultProps = {};
 
 App.propTypes = {};
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
