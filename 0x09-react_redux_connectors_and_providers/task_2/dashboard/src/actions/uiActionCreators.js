@@ -23,7 +23,7 @@ export const loginFailure = () => ({
 // Async action creator for login request
 export const loginRequest = (email, password) => (dispatch) => {
   // Dispatch the login action
-  dispatch(login(email, password));
+  dispatch(boundLogin(email, password));
 
   // Fetch the API /login-success.json
   fetch(loginApiEndpoint)
