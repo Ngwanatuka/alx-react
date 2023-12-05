@@ -11,10 +11,11 @@ import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBot
 import AppContext from "./AppContext";
 import { connect } from "react-redux";
 
+
 // Map state to props
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.isLoggedIn,
+    isLoggedIn: state.ui.isLoggedIn,
   };
 };
 class App extends Component {

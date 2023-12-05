@@ -6,7 +6,8 @@ import Header from "../Header/Header";
 import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
 import CourseList from "../CourseList/CourseList";
-import { MapStateToProps } from "./App";
+import { mapStateToProps } from "./App";
+import { fromJS } from "immutable";
 
 describe("App", () => {
   it("renders without crashing", () => {
