@@ -131,7 +131,7 @@ class App extends Component {
           <Notifications
             listNotifications={listNotifications}
             displayDrawer={isNotificationDrawerVisible}
-            handleDisplayDrawer={displayNotificationDrawer}}
+            handleDisplayDrawer={displayNotificationDrawer}
             handleHideDrawer={hideNotificationDrawer}
             markNotificationAsRead={this.markNotificationAsRead}
           />
