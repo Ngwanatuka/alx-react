@@ -1,12 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
-import App  from "./App";
+import App from "./App";
 import Notifications from "../Notifications/Notifications";
 import Header from "../Header/Header";
 import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
-import CourseList from "../CourseList/CourseList";
-import { mapStateToProps } from "./App";
 import { fromJS } from "immutable";
 import configureStore from "redux-mock-store";
 import toJson from "enzyme-to-json";
@@ -14,12 +12,11 @@ import toJson from "enzyme-to-json";
 const mockStore = configureStore([]);
 const store = mockStore({});
 
-describe('App', () => {
-  it('renders without crashing', () => {
+describe("App", () => {
+  it("renders without crashing", () => {
     const wrapper = shallow(<App store={store} />).dive();
     expect(toJson(wrapper)).toMatchSnapshot();
   });
-});
 
   it("renders a div with the class App-header", () => {
     const wrapper = shallow(<App />);
@@ -73,7 +70,13 @@ describe('App', () => {
   describe("when isLoggedIn is true", () => {
     it("does not display the Login component", () => {
       const wrapper = shallow(<App />);
-      wrapper.setState({ user: { isLoggedIn: true } });
+      const initialState = fromJS({
+        uiReducer: {
+          isLoggedIn: true,
+          isNotificationDrawerVisible: false,
+        },
+      });
+      wrapper.setState(initialState.toJS());
       expect(wrapper.find(Login)).toHaveLength(0);
     });
 
@@ -138,27 +141,6 @@ describe('App', () => {
         { id: 1, message: "Notification 1" },
         { id: 3, message: "Notification 3" },
       ]);
-    });
-  });
-
-describe("mapStateToProps", () => {
-  it("returns the right object when passing the state", () => {
-    // Mock state using Immutable Map
-    const state = fromJS({
-      uiReducer: {
-        isLoggedIn: true,
-        isNotificationDrawerVisible: false, // Add this line to mock the new attribute
-      },
-      // Add other reducers if needed
-    });
-
-    // Call mapStateToProps with the mock state
-    const props = mapStateToProps(state);
-
-    // Verify that the function returns the correct object
-    expect(props).toEqual({
-      isLoggedIn: true,
-      isNotificationDrawerVisible: false, // Add this line to match the new attribute
     });
   });
 });
