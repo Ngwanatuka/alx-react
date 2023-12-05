@@ -22,7 +22,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayDrawer: false,
       user: {
         email: "",
         password: "",
@@ -31,28 +30,11 @@ class App extends Component {
       listNotifications: [],
     };
     this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
-    this.handleHideDrawer = this.handleHideDrawer.bind(this);
     this.logIn = this.logIn.bind(this);
     this.logOut = this.logOut.bind(this);
     this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
   }
 
-  // Function to handle displaying the drawer
-  handleDisplayDrawer() {
-    console.log("Display drawer");
-    this.setState({
-      displayDrawer: true,
-    });
-  }
-
-  // Functionto handle hiding the drawer
-  handleHideDrawer() {
-    console.log("Hide drawer");
-    this.setState({
-      displayDrawer: false,
-    });
-  }
 
   // Function to handle key press
   handleKeyPress(event) {
@@ -195,8 +177,18 @@ const mapDispatchToProps = {
   hideNotificationDrawer,
 };
 
-App.defaultProps = {};
+App.defaultProps = {
+  isLoggedIn: false,
+  isNotificationDrawerVisible: false,
+  displayNotificationDrawer: () => {},
+  hideNotificationDrawer: () => {},
+};
 
-App.propTypes = {};
+App.propTypes = {
+  isLoggedIn: PropTypes.bool,
+  isNotificationDrawerVisible: PropTypes.bool,
+  displayNotificationDrawer: PropTypes.func,
+  hideNotificationDrawer: PropTypes.func,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
