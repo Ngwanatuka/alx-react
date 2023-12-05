@@ -16,6 +16,7 @@ import { connect } from "react-redux";
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.ui.isLoggedIn,
+    isNotificationDrawerVisible: state.ui.isNotificationDrawerVisible,
   };
 };
 class App extends Component {
@@ -95,7 +96,7 @@ class App extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, isNotificationDrawerVisible } = this.props;
     const { displayDrawer, user, listNotifications } = this.state;
 
     const listCourses = [
@@ -124,7 +125,7 @@ class App extends Component {
         <div className={css(styles.app)}>
           <Notifications
             listNotifications={listNotifications}
-            displayDrawer={this.state.displayDrawer}
+            displayDrawer={isNotificationDrawerVisible}
             handleDisplayDrawer={this.handleDisplayDrawer}
             handleHideDrawer={this.handleHideDrawer}
             markNotificationAsRead={this.markNotificationAsRead}
