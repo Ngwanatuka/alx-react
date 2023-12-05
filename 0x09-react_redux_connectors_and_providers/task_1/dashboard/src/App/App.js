@@ -10,17 +10,15 @@ import BodySection from "../BodySection/BodySection";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import AppContext from "./AppContext";
 import { connect } from "react-redux";
+import {
+  displayNotificationDrawer,
+  hideNotificationDrawer,
+  login,
+  logout,
+} from "../actions/uiActionCreators";
 
 
-// Map state to props
-const mapStateToProps = (state) => {
-  return {
-    isLoggedIn: state.ui.isLoggedIn,
-    isNotificationDrawerVisible: state.ui.isNotificationDrawerVisible,
-  };
-};
 class App extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -96,7 +94,12 @@ class App extends Component {
   }
 
   render() {
-    const { isLoggedIn, isNotificationDrawerVisible } = this.props;
+    const {
+      isLoggedIn,
+      isNotificationDrawerVisible,
+      displayNotificationDrawer,
+      hideNotificationDrawer,
+    } = this.props;
     const { displayDrawer, user, listNotifications } = this.state;
 
     const listCourses = [
@@ -126,8 +129,8 @@ class App extends Component {
           <Notifications
             listNotifications={listNotifications}
             displayDrawer={this.state.displayDrawer}
-            handleDisplayDrawer={this.handleDisplayDrawer}
-            handleHideDrawer={this.handleHideDrawer}
+            handleDisplayDrawer={displayNotificationDrawer}
+            handleHideDrawer={hideNotificationDrawer}
             markNotificationAsRead={this.markNotificationAsRead}
           />
           <div className={css(styles.appHeader)}>
@@ -179,8 +182,21 @@ const styles = StyleSheet.create({
   },
 });
 
+// Map state to props
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.ui.isLoggedIn,
+    isNotificationDrawerVisible: state.ui.isNotificationDrawerVisible,
+  };
+};
+
+const mapDispatchToProps = {
+  displayNotificationDrawer,
+  hideNotificationDrawer,
+};
+
 App.defaultProps = {};
 
 App.propTypes = {};
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
