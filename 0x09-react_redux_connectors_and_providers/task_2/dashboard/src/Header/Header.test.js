@@ -34,5 +34,19 @@ describe("Header component", () => {
     const logoutLink = wrapper.find("span");
     logoutLink.simulate("click");
     expect(logOutMock).toHaveBeenCalled();
+
+    it("adheres to PropTypes", () => {
+      const props = { user: { isLoggedIn: false } };
+      const propErrors = checkPropTypes(Header.propTypes, props, "prop", Header.name);
+      expect(propErrors).toBeUndefined();
+    });
+  
+    it("calls logOut function when logout link is clicked", () => {
+      const logOutMock = jest.fn();
+      const wrapper = shallow(<Header user={{ isLoggedIn: true, email: "test@example.com" }} logOut={logOutMock} />);
+      const logoutLink = wrapper.find("span");
+      logoutLink.simulate("click");
+      expect(logOutMock).toHaveBeenCalled();
+    });
   });
 });
