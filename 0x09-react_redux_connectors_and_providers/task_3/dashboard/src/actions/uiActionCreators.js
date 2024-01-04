@@ -8,7 +8,7 @@ import {
 } from "./uiActionTypes";
 
 // Simulated API call
-const loginApiEndpoint = "/login-success.json";
+const loginApiEndpoint = "http://localhost:3000/login-success.json";
 
 // Action creators for login success
 export const loginSuccess = () => ({
@@ -16,8 +16,11 @@ export const loginSuccess = () => ({
 });
 
 // Action creators for login failure
-export const loginFailure = () => ({
+export const loginFailure = (error) => ({
   type: LOGIN_FAILURE,
+  payload: {
+    error,
+  },
 });
 
 // Async action creator for login request

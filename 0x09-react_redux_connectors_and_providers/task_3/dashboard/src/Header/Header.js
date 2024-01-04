@@ -5,7 +5,6 @@ import { logout } from '../actions/uiActionCreators';
 import { connect } from "react-redux";
 
 class Header extends Component {
-
   render() {
     const { user, logout } = this.props;
 
@@ -30,7 +29,7 @@ class Header extends Component {
           <img src={logo} alt="Holberton logo" />
           <h1>School dashboard</h1>
         </div>
-        {user.isLoggedIn && (
+        {user && user.isLoggedIn && (
           <section id="logoutSection">
             Welcome {user.email} (<span onClick={logout}>logout</span>)
           </section>
@@ -46,4 +45,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, { logout })(Header);

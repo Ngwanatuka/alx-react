@@ -2,11 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App/App";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";  // Import createStore and applyMiddleware once
-import thunk from "redux-thunk";
-import uiReducer from "./reducers/uiReducer";
+import store from "./store/store";
 
-const store = createStore(uiReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <React.StrictMode>

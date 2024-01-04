@@ -6,7 +6,7 @@ import * as actionTypes from '../actions/uiActionTypes';
 const initialState = Map({ 
   isNotificationDrawerVisible: false,
   isUserLoggedIn: false,
-  user: Map(),
+  user: null,
 });
 
 // Reducer function

@@ -8,7 +8,7 @@ function Footer({ user }) {
       <p>
         Copyright {getFullYear()} - {getFooterCopy(true)}
       </p>
-      {user.isLoggedIn && (
+      {user && user.isLoggedIn && (
         <p>
           <a href="/contact-us">Contact us</a>
         </p>
@@ -16,7 +16,6 @@ function Footer({ user }) {
     </div>
   );
 }
-
 
 const mapStateToProps = (state) => {
   return {

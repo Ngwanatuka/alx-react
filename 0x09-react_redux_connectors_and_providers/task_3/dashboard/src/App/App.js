@@ -29,7 +29,6 @@ class App extends Component {
       },
       listNotifications: [],
     };
-    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
   }
 
@@ -76,7 +75,7 @@ class App extends Component {
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget neque ornare, venenatis eros non, placerat elit.";
 
     return (
-      <AppContext.Provider value={{ user, logOut: logout }}>
+      <AppContext.Provider value={{ user: this.props.user, logOut: logout}}>
         <div className={css(styles.app)}>
           <Notifications
             listNotifications={listNotifications}
@@ -137,10 +136,10 @@ const styles = StyleSheet.create({
 // Map state to props
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.ui.isLoggedIn,
-    isNotificationDrawerVisible: state.ui.isNotificationDrawerVisible,
+    isLoggedIn: state.ui.get('isUserLoggedIn', false),
+    isNotificationDrawerVisible: state.ui.get('isNotificationDrawerVisible', false),
   };
-};
+}
 
 const mapDispatchToProps = {
   displayNotificationDrawer,
