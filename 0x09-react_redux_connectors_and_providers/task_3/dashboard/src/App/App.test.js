@@ -141,6 +141,18 @@ describe("App", () => {
         { id: 1, message: "Notification 1" },
         { id: 3, message: "Notification 3" },
       ]);
+
+      
+      it("contains the Notifications component inside .App-body when isLoggedIn is true", () => {
+        const wrapper = shallow(<App />);
+        wrapper.setProps({ isLoggedIn: true });
+        expect(wrapper.find(".App-body").contains(<Notifications />)).toBe(true);
+      });
+    
+      it("matches snapshot", () => {
+        const wrapper = shallow(<App store={store} />).dive();
+        expect(toJson(wrapper)).toMatchSnapshot();
+      });
     });
   });
 });

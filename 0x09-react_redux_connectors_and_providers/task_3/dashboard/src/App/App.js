@@ -34,14 +34,6 @@ class App extends Component {
   }
 
 
-  // Function to handle key press
-  handleKeyPress(event) {
-    if (event.key === "h") {
-      alert("Logging you out");
-      this.props.logOut();
-    }
-  }
-
   // Funtion to mark a notification as read
   markNotificationAsRead(id) {
     this.setState((prevState) => ({
@@ -103,7 +95,7 @@ class App extends Component {
             </BodySectionWithMarginBottom>
           ) : (
             <BodySectionWithMarginBottom title="Log in to continue">
-              <Login logIn={login} />
+              <Login logIn={this.props.login} />
             </BodySectionWithMarginBottom>
           )}
           <BodySection title="News from the School">

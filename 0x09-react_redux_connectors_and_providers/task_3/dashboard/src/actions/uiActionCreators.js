@@ -23,7 +23,7 @@ export const loginFailure = () => ({
 // Async action creator for login request
 export const loginRequest = (email, password) => (dispatch) => {
   // Dispatch the login action
-  dispatch(boundLogin(email, password));
+  dispatch({ type: 'LOGIN_REQUEST_START' });
 
   // Fetch the API /login-success.json
   fetch(loginApiEndpoint)
@@ -33,11 +33,17 @@ export const loginRequest = (email, password) => (dispatch) => {
           }
           // If successful, dispatch loginSuccess
           dispatch(loginSuccess());
+
+          // Dispatch action to indicate the end of the login request
+          dispatch({ type: 'LOGIN_REQUEST_SUCCESS' });
       })
       .catch((error) => {
           // If API fails, dispatch loginFailure
           console.error('Login error:', error);
-          dispatch(loginFailure());
+          dispatch(loginFailure('Login failed. Please try again'));
+
+          // Dispatch action to indicate the end of the login request
+          dispatch({ type: 'LOGIN_REQUEST_FAILURE' });
       });
 };
 
