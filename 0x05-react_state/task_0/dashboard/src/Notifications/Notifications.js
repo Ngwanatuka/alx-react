@@ -25,16 +25,17 @@ class Notifications extends Component {
   };
 
   render() {
-    const { displayDrawer, listNotifications } = this.props;
+    const { displayDrawer, listNotifications, onCloseDrawer, handleDisplayDrawer, handleHideDrawer } = this.props;
+
 
     return (
       <React.Fragment>
         {displayDrawer ? (
           <div className="flex-area">
-            <div className={css(styles.menuItem)}>
+            <div className={css(styles.menuItem)} onClick={handleDisplayDrawer}>
               <p>Your notifications</p>
             </div>
-            <div className={css(styles.Notifications)} onClick={this.closeDrawer}>
+            <div className={css(styles.Notifications)}>
               <button
                 style={{
                   color: "#3a3a3a",
@@ -48,7 +49,7 @@ class Notifications extends Component {
                   cursor: "pointer",
                 }}
                 aria-label="Close"
-                onClick={this.closeDrawer}
+                onClick={handleHideDrawer}
               >
                 <img
                   className={css(styles.buttonImage)}
@@ -78,7 +79,7 @@ class Notifications extends Component {
             </div>
           </div>
         ) : (
-          <div className={css(styles.menuItem)}>
+          <div className={css(styles.menuItem)} onClick={handleHideDrawer}>
             <p>Your notifications</p>
           </div>
         )}
@@ -171,11 +172,15 @@ Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
   listNotifications: PropTypes.arrayOf(NotificationItemShape),
   onCloseDrawer: PropTypes.func,
+  handleDisplayDrawer: PropTypes.func,
+  handleHideDrawer: PropTypes.func,
 };
 
 Notifications.defaultProps = {
-  displayDrawer: true,
+  displayDrawer: false,
   listNotifications: [],
+  handleDisplayDrawer: () => {},
+  handleHideDrawer: () => {},
 };
 
 export default Notifications;

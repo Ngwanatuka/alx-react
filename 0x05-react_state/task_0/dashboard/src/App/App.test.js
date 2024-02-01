@@ -73,4 +73,27 @@ describe("App", () => {
       expect(wrapper.find(CourseList)).toHaveLength(1);
     });
   });
+
+  it("has default state displayDrawer set to false", () => {
+    const wrapper = shallow(<App />);
+    const appComponent = wrapper.instance();
+    expect(appComponent.state.displayDrawer).toBe(false);
+  });
+
+  it("updates state to true after calling handleDispslayDrawer", () => {
+    const wrapper = shallow(<App />);
+    const appComponent = wrapper.instance();
+
+    appComponent.handleDisplayDrawer();
+    expect(appComponent.state.displayDrawer).toBe(true);
+  });
+
+  it("updates stae to false after calling handleHideDrawer", () => {
+    const wrapper = shallow(<App />);
+    const appComponent = wrapper.instance();
+
+    appComponent.handleDisplayDrawer();
+    appComponent.handleHideDrawer();
+    expect(appComponent.state.displayDrawer).toBe(false);
+  });
 });
