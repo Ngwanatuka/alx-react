@@ -79,7 +79,7 @@ class Notifications extends Component {
             </div>
           </div>
         ) : (
-          <div className={css(styles.menuItem)} onClick={handleHideDrawer}>
+          <div className={css(styles.menuItem)} >
             <p>Your notifications</p>
           </div>
         )}
@@ -177,7 +177,7 @@ Notifications.propTypes = {
 };
 
 Notifications.defaultProps = {
-  displayDrawer: false,
+  displayDrawer: true,
   listNotifications: [],
   handleDisplayDrawer: () => {},
   handleHideDrawer: () => {},
