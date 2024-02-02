@@ -8,15 +8,23 @@ import CourseList from "../CourseList/CourseList";
 import PropTypes from "prop-types";
 import BodySection from "../BodySection/BodySection";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
+import { AppContext } from "./AppContext";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       displayDrawer: false,
+      user: {
+        email: "",
+        password: "",
+        isLoggedIn: false,
+      },
     };
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
+    this.logIn = this.logIn.bind(this);
+    this.logOut = this.logOut.bind(this);
   }
 
   handleDisplayDrawer = () => {
@@ -29,10 +37,32 @@ class App extends Component {
     this.setState({
       displayDrawer: false,
     });
-  }
+  };
+
+  logIn = (email, password) => {
+    this.setState({
+      user: {
+        ...this.state.user,
+        email: email,
+        password: password,
+        isLoggedIn: true,
+      },
+    });
+  };
+
+  logOut = () => {
+    this.setState({
+      user: {
+        ...this.state.user,
+        email: "",
+        password: "",
+        isLoggedIn: false,
+      },
+    });
+  };
 
   render() {
-    const { isLoggedIn, displayDrawer } = this.props;
+    const { displayDrawer, user } = this.props;
 
     const listCourses = [
       {
@@ -56,30 +86,33 @@ class App extends Component {
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget neque ornare, venenatis eros non, placerat elit.";
 
     return (
-      <div className={css(styles.app)}>
-        <Notifications 
-          displayDrawer={displayDrawer}
-          handleDisplayDrawer={this.handleDisplayDrawer}
-          handleHideDrawer={this.handleHideDrawer}
-        />
-        <div className={css(styles.appHeader)}>
-          <Header />
+      <AppContext.Provider value={{ user, logOut: this.logOut }}>
+
+        <div className={css(styles.app)}>
+          <Notifications
+            displayDrawer={displayDrawer}
+            handleDisplayDrawer={this.handleDisplayDrawer}
+            handleHideDrawer={this.handleHideDrawer}
+          />
+          <div className={css(styles.appHeader)}>
+            <Header />
+          </div>
+          <div className={css(styles.appBody)}>
+            <BodySectionWithMarginBottom title="Course list">
+              <CourseList listCourses={listCourses} />
+            </BodySectionWithMarginBottom>
+            <BodySectionWithMarginBottom title="Log in to continue">
+              <Login  logIn={this.logIn}/>
+            </BodySectionWithMarginBottom>
+            <BodySection title="News from the School">
+              <p>{randomText}</p>
+            </BodySection>
+          </div>
+          <div className={css(styles.appFooter)}>
+            <Footer />
+          </div>
         </div>
-        <div className={css(styles.appBody)}>
-          <BodySectionWithMarginBottom title="Course list">
-            <CourseList listCourses={listCourses} />
-          </BodySectionWithMarginBottom>
-          <BodySectionWithMarginBottom title="Log in to continue">
-            <Login />
-          </BodySectionWithMarginBottom>
-          <BodySection title="News from the School">
-            <p>{randomText}</p>
-          </BodySection>
-        </div>
-        <div className={css(styles.appFooter)}>
-          <Footer />
-        </div>
-      </div>
+      </AppContext.Provider>
     );
   }
 }
@@ -108,12 +141,19 @@ const styles = StyleSheet.create({
 });
 
 App.defaultProps = {
-  isLoggedIn: false,
+  user: {
+    email: "",
+    password: "",
+    isLoggedIn: false,
+  },
+  logOut: () => {},
 };
 
 App.propTypes = {
   isLoggedIn: PropTypes.bool,
   logOut: PropTypes.func,
 };
+
+
 
 export default App;
