@@ -8,18 +8,15 @@ import CourseList from "../CourseList/CourseList";
 import PropTypes from "prop-types";
 import BodySection from "../BodySection/BodySection";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
-import { AppContext } from "./AppContext";
+import { AppContext, user } from "./AppContext";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       displayDrawer: false,
-      user: {
-        email: "",
-        password: "",
-        isLoggedIn: false,
-      },
+      user: user,
+      logOut: this.logOut,
     };
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
@@ -86,8 +83,9 @@ class App extends Component {
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget neque ornare, venenatis eros non, placerat elit.";
 
     return (
-      <AppContext.Provider value={{ user, logOut: this.logOut }}>
-
+      <AppContext.Provider
+        value={{ user: this.state.user, logOut: this.state.logOut }}
+      >
         <div className={css(styles.app)}>
           <Notifications
             displayDrawer={displayDrawer}
@@ -98,12 +96,15 @@ class App extends Component {
             <Header />
           </div>
           <div className={css(styles.appBody)}>
-            <BodySectionWithMarginBottom title="Course list">
-              <CourseList listCourses={listCourses} />
-            </BodySectionWithMarginBottom>
-            <BodySectionWithMarginBottom title="Log in to continue">
-              <Login  logIn={this.logIn}/>
-            </BodySectionWithMarginBottom>
+            {this.state.user.isLoggedIn ? (
+              <BodySectionWithMarginBottom title="Course list">
+                <CourseList listCourses={this.listCourses} />
+              </BodySectionWithMarginBottom>
+            ) : (
+              <BodySectionWithMarginBottom title="Log in to continue">
+                <Login logIn={this.logIn} />
+              </BodySectionWithMarginBottom>
+            )}
             <BodySection title="News from the School">
               <p>{randomText}</p>
             </BodySection>
@@ -141,19 +142,15 @@ const styles = StyleSheet.create({
 });
 
 App.defaultProps = {
-  user: {
-    email: "",
-    password: "",
-    isLoggedIn: false,
-  },
-  logOut: () => {},
+  isLoggedIn: false,
+  logOut: () => {
+    return;
+  }
 };
 
 App.propTypes = {
   isLoggedIn: PropTypes.bool,
   logOut: PropTypes.func,
 };
-
-
 
 export default App;

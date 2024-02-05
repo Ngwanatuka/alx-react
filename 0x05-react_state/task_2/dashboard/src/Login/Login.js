@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { StyleSheet, css } from "aphrodite";
 
+
 class Login extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
       email: "",
       password: "",
       enableSubmit: false,
-      isLoggedIn: false,
     };
 
     // Binding functions for better performance
@@ -20,9 +21,9 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.setState((prevState) => ({
-      isLoggedIn: true,
-    }));
+    const { email, password } = this.state;
+    this.props.logIn(email, password);
+
   }
 
   handleChange(e) {
