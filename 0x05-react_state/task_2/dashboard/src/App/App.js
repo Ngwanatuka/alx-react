@@ -11,6 +11,8 @@ import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBot
 import { AppContext, user } from "./AppContext";
 
 class App extends Component {
+
+
   constructor(props) {
     super(props);
     this.state = {
@@ -22,14 +24,14 @@ class App extends Component {
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
     this.logIn = this.logIn.bind(this);
     this.logOut = this.logOut.bind(this);
+
   }
 
   handleDisplayDrawer = () => {
     this.setState({
       displayDrawer: true,
     });
-    console.log('Display drawer')
-  };
+  }
 
   handleHideDrawer = () => {
     this.setState({

@@ -16,18 +16,12 @@ class Notifications extends Component {
     );
   }
 
- 
   render() {
-    const {
-      displayDrawer,
-      listNotifications,
-      onCloseDrawer,
-      
-    } = this.props;
+    const { listNotifications } = this.props;
 
     return (
       <React.Fragment>
-        {!displayDrawer ? (
+        { this.props.displayDrawer ? (
           <div className="flex-area">
             <div className={css(styles.menuItem)}>
               <p onClick={this.props.handleDisplayDrawer}>Your notifications</p>
