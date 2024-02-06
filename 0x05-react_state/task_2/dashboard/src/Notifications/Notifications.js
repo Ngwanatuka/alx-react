@@ -11,29 +11,26 @@ class Notifications extends Component {
   };
 
   shouldComponentUpdate(nextProps) {
-    // Only update if the length of the new listNotifications is greater than the previous one
     return (
       nextProps.listNotifications.length > this.props.listNotifications.length
     );
   }
 
-  closeDrawer = () => {
-    console.log("Close button has been clicked");
-    if (this.onCloseDrawer) {
-      this.props.onCloseDrawer();
-    }
-  };
-
+ 
   render() {
-    const { displayDrawer, listNotifications, onCloseDrawer, handleDisplayDrawer, handleHideDrawer } = this.props;
-
+    const {
+      displayDrawer,
+      listNotifications,
+      onCloseDrawer,
+      
+    } = this.props;
 
     return (
       <React.Fragment>
-        {displayDrawer ? (
+        {!displayDrawer ? (
           <div className="flex-area">
-            <div className={css(styles.menuItem)} onClick={handleDisplayDrawer}>
-              <p>Your notifications</p>
+            <div className={css(styles.menuItem)}>
+              <p onClick={this.props.handleDisplayDrawer}>Your notifications</p>
             </div>
             <div className={css(styles.Notifications)}>
               <button
@@ -49,7 +46,7 @@ class Notifications extends Component {
                   cursor: "pointer",
                 }}
                 aria-label="Close"
-                onClick={handleHideDrawer}
+                onClick={this.props.handleHideDrawer}
               >
                 <img
                   className={css(styles.buttonImage)}
@@ -79,8 +76,8 @@ class Notifications extends Component {
             </div>
           </div>
         ) : (
-          <div className={css(styles.menuItem)} >
-            <p>Your notifications</p>
+          <div className={css(styles.menuItem)}>
+            <p onClick={this.props.handleDisplayDrawer}>Your notifications</p>
           </div>
         )}
       </React.Fragment>
@@ -89,22 +86,22 @@ class Notifications extends Component {
 }
 
 const bounceAnimation = {
-  '0%, 20%, 50%, 80%, 100%': {
-    transform: 'translateY(0)',
+  "0%, 20%, 50%, 80%, 100%": {
+    transform: "translateY(0)",
   },
-  '40%': {
-    transform: 'translateY(-5px)',
+  "40%": {
+    transform: "translateY(-5px)",
   },
-  '60%': {
-    transform: 'translateY(5px)',
+  "60%": {
+    transform: "translateY(5px)",
   },
 };
 
 const fadeInAnimation = {
-  '0%': {
+  "0%": {
     opacity: 0.5,
   },
-  '100%': {
+  "100%": {
     opacity: 1,
   },
 };
@@ -151,19 +148,19 @@ const styles = StyleSheet.create({
     color: "red",
   },
   menuItem: {
-    textAlign: 'right',
+    textAlign: "right",
     // position: 'fixed',
-    backgroundColor: '#fff8f8',
-    cursor: 'pointer',
-    transition: 'opacity 0.3s ease-in-out',
-    ':hover': {
+    backgroundColor: "#fff8f8",
+    cursor: "pointer",
+    transition: "opacity 0.3s ease-in-out",
+    ":hover": {
       animationName: [bounceAnimation, fadeInAnimation],
-      animationDuration: '0.5s',
+      animationDuration: "0.5s",
       animationIterationCount: 3,
       opacity: 0.5,
     },
-    '@media (max-width: 900px)': {
-      display: 'none',
+    "@media (max-width: 900px)": {
+      display: "none",
     },
   },
 });
@@ -172,12 +169,11 @@ Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
   listNotifications: PropTypes.arrayOf(NotificationItemShape),
   onCloseDrawer: PropTypes.func,
-  handleDisplayDrawer: PropTypes.func,
-  handleHideDrawer: PropTypes.func,
+  handleDisplayDrawer: PropTypes.func.isRequired,
+  handleHideDrawer: PropTypes.func.isRequired,
 };
 
 Notifications.defaultProps = {
-  displayDrawer: true,
   listNotifications: [],
   handleDisplayDrawer: () => {},
   handleHideDrawer: () => {},

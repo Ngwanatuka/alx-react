@@ -28,12 +28,14 @@ class App extends Component {
     this.setState({
       displayDrawer: true,
     });
+    console.log('Display drawer')
   };
 
   handleHideDrawer = () => {
     this.setState({
       displayDrawer: false,
     });
+    console.log("Close button has been clicked");
   };
 
   logIn = (email, password) => {
@@ -58,37 +60,43 @@ class App extends Component {
     });
   };
 
-  render() {
-    const { displayDrawer, user } = this.props;
 
-    const listCourses = [
-      {
-        id: 1,
-        name: "ES6",
-        credit: 60,
-      },
-      {
-        id: 2,
-        name: "Webpack",
-        credit: 20,
-      },
-      {
-        id: 3,
-        name: "React",
-        credit: 40,
-      },
-    ];
+
+
+  render() {
+   
+
+    // const listCourses = [
+    //   {
+    //     id: 1,
+    //     name: "ES6",
+    //     credit: 60,
+    //   },
+    //   {
+    //     id: 2,
+    //     name: "Webpack",
+    //     credit: 20,
+    //   },
+    //   {
+    //     id: 3,
+    //     name: "React",
+    //     credit: 40,
+    //   },
+    // ];
+
+    const { user, logOut } = this.props;
 
     const randomText =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget neque ornare, venenatis eros non, placerat elit.";
 
     return (
       <AppContext.Provider
-        value={{ user: this.state.user, logOut: this.state.logOut }}
+        value={{ user: user, logOut: logOut }}
       >
         <div className={css(styles.app)}>
           <Notifications
-            displayDrawer={displayDrawer}
+          
+            displayDrawer={this.state.displayDrawer}
             handleDisplayDrawer={this.handleDisplayDrawer}
             handleHideDrawer={this.handleHideDrawer}
           />
