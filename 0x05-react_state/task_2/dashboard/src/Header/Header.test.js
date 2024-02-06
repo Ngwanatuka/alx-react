@@ -16,6 +16,29 @@ describe("Header component", () => {
         const wrapper = shallow(<Header />);
         expect(wrapper.find("h1")).toHaveLength(1);
     });
+
+    it("does not render logoutSection with default context value", () => {
+        const wrapper = shallow(<Header />);
+        expect(wrapper.find("#logoutSection")).toHaveLength(0);
+    });
+
+    it("renders logoutSection with user defined context value", () => {
+        const user = {
+            isLoggedIn: true,
+            email: "test@example.com"
+        };
+        const wrapper = shallow(<Header />, { context: { user } });
+        expect(wrapper.find("#logoutSection")).toHaveLength(1);
+    });
+
+    it("calls logOut function when logout link is clicked", () => {
+        const logOutSpy = jest.fn();
+        const user = {
+            isLoggedIn: true,
+            email: "test@example.com"
+        };
+        const wrapper = shallow(<Header />, { context: { user, logOut: logOutSpy } });
+        wrapper.find("#logoutLink").simulate("click");
+        expect(logOutSpy).toHaveBeenCalled();
+    });
 });
-
-
