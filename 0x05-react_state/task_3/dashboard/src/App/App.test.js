@@ -113,7 +113,7 @@ describe("App", () => {
     wrapper.instance().handleLogout();
     expect(wrapper.state("isLoggedIn")).toBe(false);
   });
-  
+
   it("updates listNotifications correctly when markNotificationAsRead is called", () => {
     // Mock list of notifications
     const mockNotifications = [
@@ -129,7 +129,7 @@ describe("App", () => {
     wrapper.setState({ listNotifications: mockNotifications });
 
     // Call markNotificationAsRead function with a notification ID
-    wrapper.instance().markNotificationAsRead(2); // Assuming we want to mark notification with ID 2 as read
+    wrapper.instance().markNotificationAsRead(2);
 
     // Verify that the state is updated correctly
     expect(wrapper.state("listNotifications")).toEqual([
