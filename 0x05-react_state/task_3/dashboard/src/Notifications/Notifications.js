@@ -60,7 +60,7 @@ class Notifications extends Component {
                       type={type}
                       value={value}
                       html={html}
-                      markAsRead={() => this.markAsRead(id)}
+                      markAsRead={this.markNotificationAsRead}
                     />
                   ))
                 ) : (
@@ -165,6 +165,7 @@ Notifications.propTypes = {
   onCloseDrawer: PropTypes.func,
   handleDisplayDrawer: PropTypes.func.isRequired,
   handleHideDrawer: PropTypes.func.isRequired,
+  markNotificationAsRead: PropTypes.func.isRequired,
 };
 
 Notifications.defaultProps = {
