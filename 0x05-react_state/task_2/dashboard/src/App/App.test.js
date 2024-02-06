@@ -9,7 +9,7 @@ import CourseList from "../CourseList/CourseList";
 
 describe("App", () => {
   it("renders without crashing", () => {
-    const wrapper = shallow(<App isLoggedIn={true} />);
+    const wrapper = shallow(<App />);
     expect(wrapper.exists()).toBe(true);
   });
 
@@ -53,47 +53,64 @@ describe("App", () => {
 
   it("does not display the CourseList component", () => {
     const wrapper = shallow(<App />);
-    expect(wrapper.find("CourseList").exists()).toBe(false);
+    expect(wrapper.find(CourseList).exists()).toBe(false);
   });
 
-  it("displays the Login component when isLoggedIn is false", () => {
-    const wrapper = shallow(<App isLoggedIn={false} />);
+  it("displays the Login component when isLoggedIn state is false", () => {
+    const wrapper = shallow(<App />);
     expect(wrapper.find(Login)).toHaveLength(1);
     expect(wrapper.find(CourseList)).toHaveLength(0);
   });
 
-  describe("when isLoggedIn is true", () => {
+  describe("when isLoggedIn state is true", () => {
     it("does not display the Login component", () => {
-      const wrapper = shallow(<App isLoggedIn={true} />);
+      const wrapper = shallow(<App />);
+      wrapper.setState({ isLoggedIn: true });
       expect(wrapper.find(Login)).toHaveLength(0);
     });
 
     it("displays the CourseList component", () => {
-      const wrapper = shallow(<App isLoggedIn={true} />);
+      const wrapper = shallow(<App />);
+      wrapper.setState({ isLoggedIn: true });
       expect(wrapper.find(CourseList)).toHaveLength(1);
     });
   });
 
   it("has default state displayDrawer set to false", () => {
     const wrapper = shallow(<App />);
-    const appComponent = wrapper.instance();
-    expect(appComponent.state.displayDrawer).toBe(false);
+    expect(wrapper.state("displayDrawer")).toBe(false);
   });
 
-  it("updates state to true after calling handleDispslayDrawer", () => {
+  it("updates state to true after calling handleDisplayDrawer", () => {
     const wrapper = shallow(<App />);
-    const appComponent = wrapper.instance();
-
-    appComponent.handleDisplayDrawer();
-    expect(appComponent.state.displayDrawer).toBe(true);
+    wrapper.instance().handleDisplayDrawer();
+    expect(wrapper.state("displayDrawer")).toBe(true);
   });
 
-  it("updates stae to false after calling handleHideDrawer", () => {
+  it("updates state to false after calling handleHideDrawer", () => {
     const wrapper = shallow(<App />);
-    const appComponent = wrapper.instance();
+    wrapper.instance().handleDisplayDrawer();
+    wrapper.instance().handleHideDrawer();
+    expect(wrapper.state("displayDrawer")).toBe(false);
+  });
 
-    appComponent.handleDisplayDrawer();
-    appComponent.handleHideDrawer();
-    expect(appComponent.state.displayDrawer).toBe(false);
+  it("updates state to true after calling logIn function", () => {
+    const wrapper = shallow(<App />);
+    wrapper.instance().logIn();
+    expect(wrapper.state("isLoggedIn")).toBe(true);
+  });
+
+  it("updates state to false after calling logOut function", () => {
+    const wrapper = shallow(<App />);
+    wrapper.setState({ isLoggedIn: true });
+    wrapper.instance().logOut();
+    expect(wrapper.state("isLoggedIn")).toBe(false);
+  });
+
+  it("calls logOut function when logout link is clicked", () => {
+    const wrapper = shallow(<App />);
+    wrapper.setState({ isLoggedIn: true });
+    wrapper.instance().handleLogout();
+    expect(wrapper.state("isLoggedIn")).toBe(false);
   });
 });
