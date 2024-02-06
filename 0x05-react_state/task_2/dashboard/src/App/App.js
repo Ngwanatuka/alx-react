@@ -86,14 +86,14 @@ class App extends Component {
     //   },
     // ];
 
-    const { user, logOut } = this.props;
+    
 
     const randomText =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget neque ornare, venenatis eros non, placerat elit.";
 
     return (
       <AppContext.Provider
-        value={{ user: user, logOut: logOut }}
+        value={{ user: this.state.user, logOut: this.state.logOut}}
       >
         <div className={css(styles.app)}>
           <Notifications
