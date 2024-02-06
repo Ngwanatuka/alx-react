@@ -1,30 +1,27 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import closeIcon from "../assets/close-icon.png";
 import NotificationItem from "./NotificationItem";
 import PropTypes from "prop-types";
 import NotificationItemShape from "./NotificationItemShape";
 import { StyleSheet, css } from "aphrodite";
 
-class Notifications extends Component {
-  markAsRead = (id) => {
-    console.log(`Notification ${id} has been marked as read.`);
-  };
 
-  shouldComponentUpdate(nextProps) {
-    return (
-      nextProps.listNotifications.length > this.props.listNotifications.length
-    );
-  }
-
+class Notifications extends PureComponent {
   render() {
-    const { listNotifications } = this.props;
+    const {
+      listNotifications,
+      displayDrawer,
+      handleDisplayDrawer,
+      handleHideDrawer,
+      markNotificationAsRead,
+    } = this.props;
 
     return (
       <React.Fragment>
-        { this.props.displayDrawer ? (
+        {displayDrawer ? (
           <div className="flex-area">
             <div className={css(styles.menuItem)}>
-              <p onClick={this.props.handleDisplayDrawer}>Your notifications</p>
+              <p onClick={handleDisplayDrawer}>Your notifications</p>
             </div>
             <div className={css(styles.Notifications)}>
               <button
@@ -40,7 +37,7 @@ class Notifications extends Component {
                   cursor: "pointer",
                 }}
                 aria-label="Close"
-                onClick={this.props.handleHideDrawer}
+                onClick={handleHideDrawer}
               >
                 <img
                   className={css(styles.buttonImage)}
@@ -60,7 +57,7 @@ class Notifications extends Component {
                       type={type}
                       value={value}
                       html={html}
-                      markAsRead={this.markNotificationAsRead}
+                      markAsRead={markNotificationAsRead}
                     />
                   ))
                 ) : (
@@ -71,7 +68,7 @@ class Notifications extends Component {
           </div>
         ) : (
           <div className={css(styles.menuItem)}>
-            <p onClick={this.props.handleDisplayDrawer}>Your notifications</p>
+            <p onClick={handleDisplayDrawer}>Your notifications</p>
           </div>
         )}
       </React.Fragment>
