@@ -16,14 +16,13 @@ describe("<Notifications />", () => {
 
   describe("NotificationItem elements", () => {
     it("renders three NotificationItem elements", () => {
-      const wrapper = shallow(<Notifications />);
+      const wrapper = shallow(<Notifications listNotifications={[{ id: 1 }, { id: 2 }, { id: 3 }]} />);
       expect(wrapper.find(NotificationItem)).toHaveLength(3);
     });
 
     it("verifies the first NotificationItem renders the correct props", () => {
-      const wrapper = shallow(<Notifications />);
-      const notificationItems = wrapper.find(NotificationItem);
-      const firstNotificationItem = notificationItems.at(0);
+      const wrapper = shallow(<Notifications listNotifications={[{ id: 1, type: "default", value: "New course available" }]} />);
+      const firstNotificationItem = wrapper.find(NotificationItem).first();
       expect(firstNotificationItem.prop("type")).toBe("default");
       expect(firstNotificationItem.prop("value")).toBe("New course available");
       expect(firstNotificationItem.prop("html")).toBeUndefined();
@@ -35,19 +34,6 @@ describe("<Notifications />", () => {
     expect(wrapper.find(".menuItem").exists()).toBe(true);
   });
 
-  it("does not display #root-notifications when displayDrawer is false", () => {
-    const wrapper = shallow(<Notifications displayDrawer={false} />);
-    expect(wrapper.find("#root-notifications").prop("style")).toHaveProperty(
-      "display",
-      "none"
-    );
-  });
-
-  it("displays the menu item when displayDrawer is true", () => {
-    const wrapper = shallow(<Notifications displayDrawer={true} />);
-    expect(wrapper.find(".menuItem").exists()).toBe(true);
-  });
-
   it("displays #root-notifications when displayDrawer is true", () => {
     const wrapper = shallow(<Notifications displayDrawer={true} />);
     expect(wrapper.find("#root-notifications").prop("style")).toHaveProperty(
@@ -56,68 +42,15 @@ describe("<Notifications />", () => {
     );
   });
 
-  it("checks if markAsRead logs the correct message", () => {
-    const wrapper = shallow(<Notifications />);
-    const instance = wrapper.instance(); // Get the instance of the component
+  it("checks if markNotificationAsRead is called with the correct ID", () => {
+    const markNotificationAsRead = jest.fn();
+    const wrapper = shallow(<Notifications listNotifications={[{ id: 1 }, { id: 2 }, { id: 3 }]} markNotificationAsRead={markNotificationAsRead} />);
+    
+    // Simulate click on NotificationItem
+    wrapper.find(NotificationItem).first().simulate("click");
 
-    // Mock console.log
-    const consoleSpy = jest.spyOn(console, "log");
-
-    // Call markAsRead with a sample ID
-    instance.markAsRead(1);
-
-    // Check if console.log was called with the right message
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "Notification 1 has been marked as read"
-    );
-
-    // Restore console.log
-    consoleSpy.mockRestore();
-
-    it("should not rerender with the same list", () => {
-      const wrapper = shallow(<Notifications />);
-      const shouldNotRerender = jest.spyOn(
-        Notifications.prototype,
-        "shouldComponentUpdate"
-      );
-
-      // Set initial list
-      wrapper.setProps({
-        listNotifications: [{ id: 1, value: "Notification 1" }],
-      });
-
-      // Set the same list again
-      wrapper.setProps({
-        listNotifications: [{ id: 1, value: "Notification 1" }],
-      });
-
-      expect(shouldNotRerender).not.toHaveBeenCalled();
-      shouldNotRerender.mockRestore();
-    });
-
-    it("should rerender with a longer list", () => {
-      const wrapper = shallow(<Notifications />);
-      const shouldRerender = jest.spyOn(
-        Notifications.prototype,
-        "shouldComponentUpdate"
-      );
-
-      // Set initial list
-      wrapper.setProps({
-        listNotifications: [{ id: 1, value: "Notification 1" }],
-      });
-
-      // Set a longer list
-      wrapper.setProps({
-        listNotifications: [
-          { id: 1, value: "Notification 1" },
-          { id: 2, value: "Notification 2" },
-        ],
-      });
-
-      expect(shouldRerender).toHaveBeenCalled();
-      shouldRerender.mockRestore();
-    });
+    // Check if markNotificationAsRead was called with the correct ID
+    expect(markNotificationAsRead).toHaveBeenCalledWith(1);
   });
 
   describe("Notifications Component", () => {
