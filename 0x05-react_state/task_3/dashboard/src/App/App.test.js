@@ -113,4 +113,29 @@ describe("App", () => {
     wrapper.instance().handleLogout();
     expect(wrapper.state("isLoggedIn")).toBe(false);
   });
+  describe("App component", () => {
+    it("updates listNotifications correctly when markNotificationAsRead is called", () => {
+      // Mock list of notifications
+      const mockNotifications = [
+        { id: 1, type: "default", value: "Notification 1" },
+        { id: 2, type: "urgent", value: "Notification 2" },
+        { id: 3, type: "default", value: "Notification 3" },
+      ];
+
+      // Create a shallow-rendered instance of the App component
+      const wrapper = shallow(<App />);
+
+      // Set the mock list of notifications in the component state
+      wrapper.setState({ listNotifications: mockNotifications });
+
+      // Call markNotificationAsRead function with a notification ID
+      wrapper.instance().markNotificationAsRead(2); // Assuming we want to mark notification with ID 2 as read
+
+      // Verify that the state is updated correctly
+      expect(wrapper.state("listNotifications")).toEqual([
+        { id: 1, type: "default", value: "Notification 1" },
+        { id: 3, type: "default", value: "Notification 3" },
+      ]);
+    });
+  });
 });
