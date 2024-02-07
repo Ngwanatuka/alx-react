@@ -54,6 +54,8 @@
   "dependencies": {
     "aphrodite": "^2.4.0",
     "prop-types": "^15.8.1",
-    "text-encoding": "^0.7.0"
+    "text-encoding": "^0.7.0",
+    "redux-thunk": "^2.4.2",
+    "redux": "^4.2.1"
   }
 }
