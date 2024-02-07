@@ -25,15 +25,16 @@ const { entities } = normalizedData;
 
 // Create the function
 export function getAllNotificationsByUser(userId) {
-  const notifications = entities.notifications;
-  const users = entities.users;
-  const messages = entities.messages;
+  const result = [];
 
-  const notificationsByUser = Object.values(notifications).filter(
-    (notification) => notification.author === userId
-  );
+  // Loop through each notification
+  Object.values(entities.notifications).forEach((notification) => {
+    // Check if the given user ID is the author of the notification
+    if (notification.author === userId) {
+      // If yes, push the corresponding message to the result array
+      result.push(entities.messages[notification.context]);
+    }
+  });
 
-  return notificationsByUser.map(
-    (notification) => messages[notification.context]
-  );
+  return result;
 }
