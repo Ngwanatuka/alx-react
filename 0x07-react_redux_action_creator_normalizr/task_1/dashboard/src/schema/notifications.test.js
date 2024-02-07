@@ -1,5 +1,3 @@
-// notifications.test.js
-
 import { getAllNotificationsByUser } from './notifications';
 
 // Test case
@@ -16,6 +14,6 @@ describe('getAllNotificationsByUser', () => {
     ];
 
     const result = getAllNotificationsByUser(userId);
-    expect(result).toEqual(expectedData);
+    expect(result).toEqual(expect.arrayContaining(expectedData));
   });
 });

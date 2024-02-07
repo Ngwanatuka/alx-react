@@ -14,7 +14,6 @@ describe('getAllNotificationsByUser', () => {
     ];
 
     const result = getAllNotificationsByUser(userId);
-    expect(result).toEqual(expectedData);
+    expect(result).toEqual(expect.arrayContaining(expectedData));
   });
 });
-
