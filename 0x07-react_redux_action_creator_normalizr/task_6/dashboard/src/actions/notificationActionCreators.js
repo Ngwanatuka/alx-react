@@ -16,3 +16,6 @@ export const setNotificationFilter = (filter) => {
         filter,
     };
 }
+
+export const boundMarkAsRead = (index) => dispatch(markAsRead(index));
+export const boundSetNotificationFilter = (filter) => dispatch(setNotificationFilter(filter));

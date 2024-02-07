@@ -9,3 +9,7 @@ export const unSelectCourse = (index) => ({
     type: UNSELECT_COURSE,
     payload: { index },
 });
+
+// bound action creators
+export const boundSelectCourse = (index) => dispatch(selectCourse(index));
+export const boundUnSelectCourse = (index) => dispatch(unSelectCourse(index));
