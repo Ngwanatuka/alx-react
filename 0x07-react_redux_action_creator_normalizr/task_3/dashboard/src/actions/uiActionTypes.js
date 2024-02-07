@@ -1,0 +1,4 @@
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+export const DISPLAY_ERROR = 'DISPLAY_ERROR';
+export const HIDE_NOTIFICATION_DRAWER = 'HIDE_NOTIFICATION_DRAWER';
