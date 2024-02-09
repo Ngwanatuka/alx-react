@@ -7,36 +7,36 @@ import { Map } from "immutable";
 
 describe("uiReducer", () => {
   it("should return the initial state when no action is passed", () => {
-    const initialState = Map({
+    const initialState = {
       isNotificationDrawerVisible: false,
       isUserLoggedIn: false,
-      user: Map({}),
-    });
-    expect(uiReducer(undefined, {})).toEqual(initialState);
+      user: {},
+    };
+    expect(uiReducer(undefined, {}).toJS()).toEqual(initialState);
   });
 
   it("should return the initial state when the action SELECT_COURSE is passed", () => {
-    const initialState = Map({
+    const initialState = {
       isNotificationDrawerVisible: false,
       isUserLoggedIn: false,
-      user: Map({}),
-    });
+      user: {},
+    };
     const action = { type: SELECT_COURSE };
-    expect(uiReducer(initialState, action)).toEqual(initialState);
+    expect(uiReducer(Map(initialState), action).toJS()).toEqual(initialState);
   });
 
   it("should correctly update isNotificationDrawerVisible property when DISPLAY_NOTIFICATION_DRAWER action is passed", () => {
-    const initialState = Map({
+    const initialState = {
       isNotificationDrawerVisible: false,
       isUserLoggedIn: false,
-      user: Map({}),
-    });
+      user: {},
+    };
     const action = { type: DISPLAY_NOTIFICATION_DRAWER };
-    const expectedState = Map({
+    const expectedState = {
       isNotificationDrawerVisible: true,
       isUserLoggedIn: false,
-      user: Map({}),
-    });
-    expect(uiReducer(initialState, action)).toEqual(expectedState);
+      user: {},
+    };
+    expect(uiReducer(Map(initialState), action).toJS()).toEqual(expectedState);
   });
 });
