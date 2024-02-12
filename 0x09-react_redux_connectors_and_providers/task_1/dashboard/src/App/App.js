@@ -48,8 +48,7 @@ class App extends Component {
   }
 
   render() {
-    const { isLoggedIn } =
-      this.props;
+    const { isLoggedIn } = this.props;
     const randomText =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget neque ornare, venenatis eros non, placerat elit.";
 
