@@ -11,11 +11,17 @@ import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBot
 import { AppContext, user } from "./AppContext";
 import { getLatestNotification } from "../utils/utils";
 import { connect } from "react-redux";
+import { displayNotificationDrawer, hideNotificationDrawer } from "../actions/uiActionCreators";
 
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.uiReducer.get("isUserLoggedIn"),
   };
+};
+
+const mapDispatchToProps = {
+  displayNotificationDrawer,
+  hideNotificationDrawer,
 };
 class App extends Component {
   constructor(props) {
@@ -41,6 +47,7 @@ class App extends Component {
     this.setState({
       displayDrawer: true,
     });
+    this.props.displayNotificationDrawer();
   };
 
   handleHideDrawer = () => {
@@ -48,6 +55,7 @@ class App extends Component {
       displayDrawer: false,
     });
     console.log("Close button has been clicked");
+    this.props.hideNotificationDrawer();
   };
 
   logIn = (email, password) => {
@@ -157,4 +165,4 @@ App.propTypes = {
   logOut: PropTypes.func,
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
