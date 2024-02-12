@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App/App";
-import { createStore } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
+import uiReducer from "./reducers/uiReducer";
 
-const store = createStore(reducer);
+const store = configureStore({ reducer: uiReducer });
 
 ReactDOM.render(
   <React.StrictMode>

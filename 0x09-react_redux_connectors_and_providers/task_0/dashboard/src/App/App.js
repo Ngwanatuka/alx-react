@@ -14,7 +14,7 @@ import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.uiReducer.isLoggedIn,
+    isLoggedIn: state.uiReducer.get("isUserLoggedIn"),
   };
 };
 class App extends Component {
@@ -80,9 +80,7 @@ class App extends Component {
     }));
   }
 
-  
   render() {
-
     const randomText =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget neque ornare, venenatis eros non, placerat elit.";
 
