@@ -6,6 +6,25 @@ import Header from "../Header/Header";
 import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
 import CourseList from "../CourseList/CourseList";
+import { fromJS } from "immutable";
+import { mapStateToProps } from "react-redux";
+
+describe("maStateToProps", () => {
+  it("returns the right object when passing state", () => {
+    // state using fromJS from Immutable
+    let state = fromJS({
+      isLoggedIn: true,
+    });
+
+    // call mapStateToProps with the state
+    const props = mapStateToProps(state);
+
+    // verify that it returns the correct object
+    expect(props).toEqual({
+      isLoggedIn: true,
+    });
+  });
+});
 
 describe("App", () => {
   it("renders without crashing", () => {
