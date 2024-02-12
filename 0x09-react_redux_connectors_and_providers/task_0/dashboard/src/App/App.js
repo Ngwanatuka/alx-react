@@ -10,7 +10,13 @@ import BodySection from "../BodySection/BodySection";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import { AppContext, user } from "./AppContext";
 import { getLatestNotification } from "../utils/utils";
+import { connect } from "react-redux";
 
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.uiReducer.isLoggedIn,
+  };
+};
 class App extends Component {
   constructor(props) {
     super(props);
@@ -74,24 +80,8 @@ class App extends Component {
     }));
   }
 
+  
   render() {
-    // const listCourses = [
-    //   {
-    //     id: 1,
-    //     name: "ES6",
-    //     credit: 60,
-    //   },
-    //   {
-    //     id: 2,
-    //     name: "Webpack",
-    //     credit: 20,
-    //   },
-    //   {
-    //     id: 3,
-    //     name: "React",
-    //     credit: 40,
-    //   },
-    // ];
 
     const randomText =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget neque ornare, venenatis eros non, placerat elit.";
@@ -169,4 +159,4 @@ App.propTypes = {
   logOut: PropTypes.func,
 };
 
-export default App;
+export default connect(mapStateToProps)(App);
