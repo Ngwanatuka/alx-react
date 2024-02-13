@@ -11,7 +11,6 @@ const mapStateToProps = (state) => {
 };
 
 function Footer({ user }) {
-  const { user } = useContext(AppContext);
   return (
     <div className="App-footer">
       <p>

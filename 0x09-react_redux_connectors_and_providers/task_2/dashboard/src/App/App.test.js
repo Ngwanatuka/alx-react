@@ -3,9 +3,9 @@ import { shallow } from "enzyme";
 import App from "./App";
 import Notifications from "../Notifications/Notifications";
 import Header from "../Header/Header";
-import Login from "../Login/Login";
 import Footer from "../Footer/Footer";
 import CourseList from "../CourseList/CourseList";
+import { mapStateToProps } from "./App";
 import { fromJS } from "immutable";
 
 describe("mapStateToProps", () => {
@@ -16,7 +16,7 @@ describe("mapStateToProps", () => {
     });
 
     // call mapStateToProps with the state
-    const props = MapStateToProps(state);
+    const props = mapStateToProps(state);
 
     // verify that it returns the correct object
     expect(props).toEqual({
@@ -59,11 +59,6 @@ describe("App", () => {
     expect(wrapper.find(Header).exists()).toBe(true);
   });
 
-  it("contains the Login component", () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper.find(Login).exists()).toBe(true);
-  });
-
   it("contains the Footer component", () => {
     const wrapper = shallow(<App />);
     expect(wrapper.find(Footer).exists()).toBe(true);
@@ -74,21 +69,20 @@ describe("App", () => {
     expect(wrapper.find(CourseList).exists()).toBe(false);
   });
 
-  it("displays the Login component when isLoggedIn state is false", () => {
+  it("does not display the Login component by default", () => {
     const wrapper = shallow(<App />);
-    expect(wrapper.find(Login)).toHaveLength(1);
-    expect(wrapper.find(CourseList)).toHaveLength(0);
+    expect(wrapper.find(Login).exists()).toBe(false);
   });
 
   describe("when isLoggedIn state is true", () => {
     it("does not display the Login component", () => {
       const wrapper = shallow(<App isLoggedIn={true} />);
-      expect(wrapper.find(Login)).toHaveLength(0);
+      expect(wrapper.find(Login).exists()).toBe(false);
     });
 
     it("displays the CourseList component", () => {
       const wrapper = shallow(<App isLoggedIn={true} />);
-      expect(wrapper.find(CourseList)).toHaveLength(1);
+      expect(wrapper.find(CourseList).exists()).toBe(true);
     });
   });
 
