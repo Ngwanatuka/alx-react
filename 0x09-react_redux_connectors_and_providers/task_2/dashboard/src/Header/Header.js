@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import logo from "../assets/holberton-logo.jpg";
 import { StyleSheet, css } from "aphrodite";
-import { AppContext } from "../App/AppContext";
+import { connect } from "react-redux";
+import { logout } from "../actions/uiActionCreators";
 
 class Header extends Component {
-  static contextType = AppContext;
   render() {
-    const { user, logOut } = this.context;
+    const { user, logout } = this.props;
 
     return (
       <React.Fragment>
@@ -19,7 +19,7 @@ class Header extends Component {
           <section className={css(styles.welcomeMessage)} id="logoutSection">
             Welcome <strong>{user.email}</strong>
             <em>
-              <a href="#" onClick={logOut} className={css(styles.logoutLink)}>
+              <a href="#" onClick={logout} className={css(styles.logoutLink)}>
                 (logout)
               </a>
             </em>
@@ -58,4 +58,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Header;
+// Define mapStateToProps function
+const mapStateToProps = (state) => {
+  return {
+    user: state.uiReducer.get("user"),
+  };
+};
+
+// Connect the Header component to mapStateToProps and logout action creator
+export default connect(mapStateToProps, { logout })(Header);
