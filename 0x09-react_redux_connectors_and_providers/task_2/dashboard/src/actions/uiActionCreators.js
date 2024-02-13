@@ -27,7 +27,7 @@ export const loginRequest = (email, password) => {
   
       try {
         // Fetch the API '/login-success.json'
-        const response = await fetch('/login-success.json');
+        const response = await fetch(loginApiEndpoint);
   
         // Check if the response is successful
         if (response.ok) {

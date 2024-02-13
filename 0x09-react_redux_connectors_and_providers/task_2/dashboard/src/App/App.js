@@ -10,51 +10,20 @@ import CourseList from "../CourseList/CourseList";
 import BodySection from "../BodySection/BodySection";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import { AppContext, user } from "./AppContext";
-import { getLatestNotification } from "../utils/utils";
-import { MapStateToProps } from "react-redux";
 import {
   displayNotificationDrawer,
   hideNotificationDrawer,
+  loginRequest,
 } from "../actions/uiActionCreators";
 
 class App extends Component {
-  logIn = (email, password) => {
-    this.setState({
-      user: {
-        ...this.state.user,
-        email: email,
-        password: password,
-        isLoggedIn: true,
-      },
-    });
-  };
-
-  logOut = () => {
-    this.setState({
-      user: {
-        ...this.state.user,
-        email: "",
-        password: "",
-        isLoggedIn: false,
-      },
-    });
-  };
-
-  markNotificationAsRead(id) {
-    this.setState((prevState) => ({
-      listNotifications: prevState.listNotifications.filter(
-        (notification) => notification.id !== id
-      ),
-    }));
-  }
-
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, login } = this.props;
     const randomText =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget neque ornare, venenatis eros non, placerat elit.";
 
     return (
-      <AppContext.Provider value={{ user: user, logOut: this.logOut }}>
+      <AppContext.Provider value={{ user: user }}>
         <div className={css(styles.app)}>
           <Notifications />
           <div className={css(styles.appHeader)}>
@@ -67,7 +36,7 @@ class App extends Component {
               </BodySectionWithMarginBottom>
             ) : (
               <BodySectionWithMarginBottom title="Log in to continue">
-                <Login logIn={this.logIn} />
+                <Login login={login} />
               </BodySectionWithMarginBottom>
             )}
             <BodySection title="News from the School">
@@ -113,9 +82,10 @@ App.propTypes = {
   isLoggedIn: PropTypes.bool,
   displayNotificationDrawer: PropTypes.func.isRequired,
   hideNotificationDrawer: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
 };
 
-const MapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.uiReducer.get("isUserLoggedIn"),
   };
@@ -124,6 +94,7 @@ const MapStateToProps = (state) => {
 const mapDispatchToProps = {
   displayNotificationDrawer,
   hideNotificationDrawer,
+  login: loginRequest,
 };
 
-export default connect(MapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
