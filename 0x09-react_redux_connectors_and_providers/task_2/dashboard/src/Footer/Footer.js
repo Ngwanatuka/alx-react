@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./Footer.css";
 import { getFullYear, getFooterCopy } from "../utils/utils.js";
-import { AppContext } from "../App/AppContext.js";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
   return {
-    user: state.uiReducer.get("user"),
+    user: state.get("user"),
   };
 };
 
@@ -17,7 +16,7 @@ function Footer({ user }) {
         Copyright {getFullYear()} - {getFooterCopy(true)}
       </p>
 
-      {user.isLoggedIn && (
+      {user && user.isLoggedIn && (
         <p>
           <a href="/contact">Contact us</a>
         </p>

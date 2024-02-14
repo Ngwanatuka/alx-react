@@ -1,15 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App/App";
-import { configureStore,  } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
 import uiReducer from "./reducers/uiReducer";
-import thunk from "redux-thunk";
-
-const middleware = [thunk];
+import { configureStore } from "@reduxjs/toolkit";
 
 const store = configureStore({
   reducer: uiReducer,
-  middleware,
 });
 
 ReactDOM.render(

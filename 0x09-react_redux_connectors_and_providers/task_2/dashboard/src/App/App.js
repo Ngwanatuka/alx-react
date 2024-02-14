@@ -87,7 +87,7 @@ App.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.uiReducer.get("isUserLoggedIn"),
+    isLoggedIn: state.get("isUserLoggedIn"),
   };
 };
 

@@ -15,7 +15,7 @@ class Header extends Component {
           <h1>School dashboard</h1>
         </div>
 
-        {user.isLoggedIn && (
+        {user && user.isLoggedIn && (
           <section className={css(styles.welcomeMessage)} id="logoutSection">
             Welcome <strong>{user.email}</strong>
             <em>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
 // Define mapStateToProps function
 const mapStateToProps = (state) => {
   return {
-    user: state.uiReducer.get("user"),
+    user: state.get("user"),
   };
 };
 

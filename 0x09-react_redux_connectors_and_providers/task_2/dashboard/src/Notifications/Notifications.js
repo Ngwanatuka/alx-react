@@ -162,7 +162,7 @@ Notifications.propTypes = {
   onCloseDrawer: PropTypes.func,
   handleDisplayDrawer: PropTypes.func.isRequired,
   handleHideDrawer: PropTypes.func.isRequired,
-  markNotificationAsRead: PropTypes.func.isRequired,
+  markNotificationAsRead: PropTypes.func,
 };
 
 Notifications.defaultProps = {
