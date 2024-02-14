@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
 // Define mapStateToProps function
 const mapStateToProps = (state) => {
   return {
-    user: state.get("user"),
+    user: state.ui.user,
   };
 };
 

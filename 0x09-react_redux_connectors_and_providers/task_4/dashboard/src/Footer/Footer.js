@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
   return {
-    user: state.get("user"),
+    user: state.ui.user,
   };
 };
 

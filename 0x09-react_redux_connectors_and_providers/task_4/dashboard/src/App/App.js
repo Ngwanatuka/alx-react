@@ -88,7 +88,7 @@ App.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.get("isLoggedIn"),
+    isLoggedIn: state.ui.isLoggedIn,
   };
 };
 
