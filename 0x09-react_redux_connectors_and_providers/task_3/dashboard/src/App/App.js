@@ -13,6 +13,7 @@ import { AppContext, user } from "./AppContext";
 import {
   displayNotificationDrawer,
   hideNotificationDrawer,
+  login,
   loginRequest,
 } from "../actions/uiActionCreators";
 
