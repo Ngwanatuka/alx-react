@@ -2,6 +2,7 @@ import {
   MARK_AS_READ,
   SET_TYPE_FILTER,
   SET_LOADING_STATE,
+  FETCH_NOTIFICATIONS_SUCCESS,
 } from "./notificationActionTypes";
 
 export const markAsRead = (index) => {
@@ -32,7 +33,7 @@ export const setNotifications = (data) => ({
   data,
 });
 
-export const fetchNotificactions = () => (dispatch) => {
+export const fetchNotifications = () => (dispatch) => {
   dispatch(setLoadingState(true));
 
   fetch("/notifications.json")
